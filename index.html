@@ -1,1 +1,31 @@
 <link rel="stylesheet" href="https://old.changelly.com/widget.css"/> <a id="changellyButton" href="https://old.changelly.com/widget/v1?auth=email&from=ETH&to=BTC&merchant_id=htxod42fg11hp7i3&address=&amount=1&ref_id=htxod42fg11hp7i3&color=256b4b" target="_blank"> <img src="https://old.changelly.com/pay_button_exchange.png" /> </a> <div id="changellyModal"> <div class="changellyModal-content"> <span class="changellyModal-close">x</span> <iframe src="https://old.changelly.com/widget/v1?auth=email&from=ETH&to=BTC&merchant_id=htxod42fg11hp7i3&address=&amount=1&ref_id=htxod42fg11hp7i3&color=256b4b" width="600" height="500" class="changelly" scrolling="no" style="overflow-y: hidden; border: none" > Can't load widget </iframe> </div> <script type="text/javascript"> var changellyModal = document.getElementById('changellyModal'); var changellyButton = document.getElementById('changellyButton'); var changellyCloseButton = document.getElementsByClassName('changellyModal-close')[0]; changellyCloseButton.onclick = function() { changellyModal.style.display = 'none'; }; changellyButton.onclick = function widgetClick(e) { e.preventDefault(); changellyModal.style.display = 'block'; }; </script> </div>
+
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <description>{{ site.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ site.baseurl }}/</link>
+    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll v{{ jekyll.version }}</generator>
+    {% for video in site.videos %}
+      <item>
+        <title>{{ video.title | xml_escape }}</title>
+        <description>{{ video.content | xml_escape }}</description>
+        <pubDate>
+            {{ video.date | date: '%d %B %Y' | date_to_rfc822 }}
+        </pubDate>
+        <link>{{ video.url | prepend: site.baseurl | prepend: site.url }}</link>
+        <guid isPermaLink="true">{{ video.url | prepend: site.baseurl | prepend: site.url }}</guid>
+        {% for tag in video.tags %}
+        <category>{{ tag | xml_escape }}</category>
+        {% endfor %}
+      </item>
+    {% endfor %}
+  </channel>
+</rss>
